@@ -1,0 +1,37 @@
+<section class="main">
+  <div class="container">
+    <h1>Today's Cryptocurrency Prices by Market Cap</h1>
+
+    <table>
+
+      <thead>
+      <tr>
+        <td>№rank</td>
+        <td>Coin Symbol</td>
+        <td>Coin Logo</td>
+        <td>Price USD</td>
+        <td>Market Cap</td>
+        <td>24h %</td>
+        <td>Add To Portfolio</td>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let coin of allCoins">
+        <td>{{coin.rank}}</td>
+        <td>{{coin.symbol}}</td>
+        <td>here logo</td>
+        <td>{{coin.priceUsd}}</td>
+        <td>{{coin.marketCapUsd}}</td>
+        <td>{{coin.changePercent24Hr}}</td>
+        <td>
+          <button>Add To Portfolio</button>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+</section>
+
