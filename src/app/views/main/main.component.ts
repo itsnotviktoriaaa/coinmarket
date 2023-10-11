@@ -22,8 +22,7 @@ export class MainComponent implements OnInit {
           this.allCoins = data.data;
           this.allCoins.forEach((item: AllCoinsType) => {
             item.priceUsd = Math.trunc(+(item.priceUsd) * 100) / 100;
-            console.log(item.priceUsd);
-            item.marketCapUsd = Math.trunc(+(item.priceUsd) * 100) / 100;
+            item.marketCapUsd = Math.trunc(+(item.marketCapUsd) * 100) / 100;
           });
 
           this.allCoins = this.allCoins.filter((item: AllCoinsType) => {
@@ -31,7 +30,7 @@ export class MainComponent implements OnInit {
           })
         },
         error: (errorResponse: HttpErrorResponse) => {
-
+          //sth happen
         }
       });
   }
