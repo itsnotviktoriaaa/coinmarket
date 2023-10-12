@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs";
 import {LoaderService} from "../../shared/services/loader.service";
+import {environment} from "../../../environments/environment.development";
 
 @Component({
   selector: 'app-main',
@@ -19,11 +20,14 @@ export class MainComponent implements OnInit {
               private router: Router) {
   }
 
+  pathToLogo = environment.pathToLogo;
+
   allCoins: AllCoinsType[] = [];
   quantityOfPages: number = 0;
   searchCoins: AllCoinsType[] = [];
   showedSearch: boolean = false;
   searchField = new FormControl();
+  page: number = 1;
 
   ngOnInit() {
 
@@ -53,7 +57,8 @@ export class MainComponent implements OnInit {
           });
 
           this.allCoins = this.allCoins.filter((item: AllCoinsType) => {
-            return item.priceUsd > 0;
+            return item.priceUsd > 0 && item.marketCapUsd > 0 && item.changePercent24Hr != null;
+            //with help (item.changePercent24Hr != null) exclude empty lines without percentages as well
           });
 
 
@@ -76,6 +81,10 @@ export class MainComponent implements OnInit {
     if (this.showedSearch && (event.target as HTMLElement).className.indexOf('search-product') === -1) {
       this.showedSearch = false;
     }
+  }
+
+  movePageUp () {
+    window.scroll(0, 0);
   }
 
 }

@@ -1,10 +1,14 @@
-.main-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.main {
+  padding-top: 70px;
+  padding-bottom: 100px;
 
-  .main-search {
-    position: relative;
+  .main-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .main-search {
+      position: relative;
 
       input {
         border: 1px solid gray;
@@ -39,47 +43,77 @@
         filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.2));
       }
 
-    .search-product {
-      padding: 12px 23px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      background-color: #FFFFFF;
-      color: #8E8E8E;
+      .search-product {
+        padding: 12px 23px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background-color: #FFFFFF;
+        color: #8E8E8E;
 
-      &:first-child {
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-      }
+        &:first-child {
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
 
-      &:last-child {
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-      }
+        &:last-child {
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
 
-      &:hover {
-        background-color: #9f9f9f;
-        color: #000000;
-      }
+        &:hover {
+          background-color: #9f9f9f;
+          color: #000000;
+        }
 
-      .search-product-symbol {
-        margin-right: 15px;
+        .search-product-name {
+          border-left: 1px solid lightgray;
+          padding-left: 15px;
+        }
+
+        .search-product-symbol {
+          margin-right: 15px;
+          width: 60px;
+        }
+
       }
 
     }
 
   }
 
-}
-
-table {
-  border-collapse: collapse;
-  border: 2px solid #9f9f9f;
-  width: 100%;
-
-  td {
+  table {
+    border-collapse: collapse;
     border: 2px solid #9f9f9f;
-    padding: 20px;
+    width: 100%;
+
+    td {
+      border: 2px solid #9f9f9f;
+      padding: 20px;
+    }
+
+    .main-table-thead-tr td {
+      font-size: 12px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+    }
+
+    .main-table-tbody-tr {
+      font-size: 14px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+    }
+
+    .main-logo-coin {
+      background-size: 35px 35px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+  }
+
+  .main-pagination {
+    text-align: center;
   }
 
 }

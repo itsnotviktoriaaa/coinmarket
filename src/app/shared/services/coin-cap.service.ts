@@ -12,7 +12,7 @@ export class CoinCapService {
 
 
   getAllCoins(): Observable<{data: Array<AllCoinsType>}> {
-    return this.http.get<{data: Array<AllCoinsType>}>('https://api.coincap.io/v2/assets');
+    return this.http.get<{data: Array<AllCoinsType>}>('https://api.coincap.io/v2/assets?limit=2000');
   }
 
   searchProducts(query: string): Observable<{data: Array<AllCoinsType>}> {
