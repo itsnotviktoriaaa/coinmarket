@@ -8,7 +8,7 @@ export type AllCoinsType = {
   marketCapUsd: number,
   volumeUsd24Hr: string,
   priceUsd: number,
-  changePercent24Hr: string,
+  changePercent24Hr: number,
   vwap24Hr: string,
   explorer: string
 }

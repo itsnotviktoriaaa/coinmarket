@@ -7,6 +7,8 @@
 
         <div class="search-products" *ngIf="showedSearch && searchCoins && searchCoins.length > 0">
           <div class="search-product" *ngFor="let searchCoin of searchCoins" (click)="selectProduct(searchCoin.id)">
+            <div class="search-product-image"
+                 style="background-image: url({{pathToLogo + searchCoin.symbol.toLowerCase() + '@2x.png'}})"></div>
             <div class="search-product-symbol">{{searchCoin.symbol}}</div>
             <div class="search-product-name">{{searchCoin.name}}</div>
           </div>
@@ -22,19 +24,47 @@
         <td>№rank</td>
         <td>Coin Symbol</td>
         <td>Coin Logo</td>
-        <td>Price (USD)</td>
-        <td>Market Cap</td>
-        <td>24h %</td>
+        <td
+          [class]="{'can-touch-price': true, 'non-svg': !priceUsdSortValue, 'rotate-svg': priceUsdSortValue === priceDown}"
+          (click)="sortOfPriceUsd()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9.99974 5.99997C10.5831 5.99997 11.1664 6.22497 11.6081 6.66663L17.0414 12.1C17.2831 12.3416 17.2831 12.7416 17.0414 12.9833C16.7997 13.225 16.3997 13.225 16.1581 12.9833L10.7247 7.54997C10.3247 7.14997 9.67474 7.14997 9.27474 7.54997L3.84141 12.9833C3.59974 13.225 3.19974 13.225 2.95807 12.9833C2.71641 12.7416 2.71641 12.3416 2.95807 12.1L8.39141 6.66663C8.83307 6.22497 9.41641 5.99997 9.99974 5.99997Z"
+              fill="#292D32"/>
+          </svg>
+          <span>Price (USD)</span>
+        </td>
+        <td
+          [class]="{'can-touch-market-cap': true, 'non-svg': !marketCapUsdSortValue, 'rotate-svg': marketCapUsdSortValue === marketCapDown}"
+          (click)="sortOfMarketCap()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9.99974 5.99997C10.5831 5.99997 11.1664 6.22497 11.6081 6.66663L17.0414 12.1C17.2831 12.3416 17.2831 12.7416 17.0414 12.9833C16.7997 13.225 16.3997 13.225 16.1581 12.9833L10.7247 7.54997C10.3247 7.14997 9.67474 7.14997 9.27474 7.54997L3.84141 12.9833C3.59974 13.225 3.19974 13.225 2.95807 12.9833C2.71641 12.7416 2.71641 12.3416 2.95807 12.1L8.39141 6.66663C8.83307 6.22497 9.41641 5.99997 9.99974 5.99997Z"
+              fill="#292D32"/>
+          </svg>
+          <span>Market Cap</span>
+        </td>
+        <td
+          [class]="{'can-touch-changed-percent-24hr': true, 'non-svg': !changePercent24HrSortValue, 'rotate-svg': changePercent24HrSortValue === changePercent24HrDown}"
+          (click)="sortOfChangePercent24Hr()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M9.99974 5.99997C10.5831 5.99997 11.1664 6.22497 11.6081 6.66663L17.0414 12.1C17.2831 12.3416 17.2831 12.7416 17.0414 12.9833C16.7997 13.225 16.3997 13.225 16.1581 12.9833L10.7247 7.54997C10.3247 7.14997 9.67474 7.14997 9.27474 7.54997L3.84141 12.9833C3.59974 13.225 3.19974 13.225 2.95807 12.9833C2.71641 12.7416 2.71641 12.3416 2.95807 12.1L8.39141 6.66663C8.83307 6.22497 9.41641 5.99997 9.99974 5.99997Z"
+              fill="#292D32"/>
+          </svg>
+          <span>24h %</span>
+        </td>
         <td>Add To Portfolio</td>
       </tr>
       </thead>
 
       <tbody>
       <tr class="main-table-tbody-tr"
-        *ngFor="let coin of allCoins | paginate: { itemsPerPage: 100, currentPage: page, totalItems: allCoins.length }">
+          *ngFor="let coin of allCoins | paginate: { itemsPerPage: 100, currentPage: page, totalItems: allCoins.length }">
         <td>{{coin.rank}}</td>
         <td>{{coin.symbol}}</td>
-        <td class="main-logo-coin" style="background-image: url({{pathToLogo + coin.symbol.toLowerCase() + '@2x.png'}})"></td>
+        <td class="main-logo-coin"
+            style="background-image: url({{pathToLogo + coin.symbol.toLowerCase() + '@2x.png'}})"></td>
         <td>${{coin.priceUsd}}</td>
         <td>${{coin.marketCapUsd}}</td>
         <td>{{coin.changePercent24Hr}}%</td>

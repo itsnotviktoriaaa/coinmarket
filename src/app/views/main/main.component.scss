@@ -66,6 +66,15 @@
           color: #000000;
         }
 
+        .search-product-image {
+          width: 25px;
+          height: 25px;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          margin-right: 15px;
+        }
+
         .search-product-name {
           border-left: 1px solid lightgray;
           padding-left: 15px;
@@ -108,6 +117,60 @@
       background-size: 35px 35px;
       background-repeat: no-repeat;
       background-position: center;
+    }
+
+    .can-touch-price {
+      cursor: pointer;
+
+      &.non-svg svg path {
+        fill: transparent;
+      }
+
+      &.rotate-svg svg {
+        transform: rotate(180deg);
+      }
+
+      & span {
+        position: relative;
+        bottom: 5px;
+      }
+
+    }
+
+    .can-touch-market-cap {
+      cursor: pointer;
+
+      &.non-svg svg path {
+        fill: transparent;
+      }
+
+      &.rotate-svg svg {
+        transform: rotate(180deg);
+      }
+
+      & span {
+        position: relative;
+        bottom: 5px;
+      }
+
+    }
+
+    .can-touch-changed-percent-24hr {
+      cursor: pointer;
+
+      &.non-svg svg path {
+        fill: transparent;
+      }
+
+      &.rotate-svg svg {
+        transform: rotate(180deg);
+      }
+
+      & span {
+        position: relative;
+        bottom: 5px;
+      }
+
     }
 
   }
