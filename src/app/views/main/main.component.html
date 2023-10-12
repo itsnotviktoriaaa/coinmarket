@@ -1,6 +1,19 @@
 <section class="main">
   <div class="container">
-    <h1>Today's Cryptocurrency Prices by Market Cap</h1>
+    <div class="main-wrapper">
+      <h1>Today's Cryptocurrency Prices by Market Cap</h1>
+      <div class="main-search">
+        <input type="text" placeholder="Start looking" [formControl]="searchField">
+
+        <div class="search-products" *ngIf="showedSearch && searchCoins && searchCoins.length > 0">
+          <div class="search-product" *ngFor="let searchCoin of searchCoins" (click)="selectProduct(searchCoin.id)">
+            <div class="search-product-symbol">{{searchCoin.symbol}}</div>
+            <div class="search-product-name">{{searchCoin.name}}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <table>
 
@@ -9,7 +22,7 @@
         <td>№rank</td>
         <td>Coin Symbol</td>
         <td>Coin Logo</td>
-        <td>Price USD</td>
+        <td>Price (USD)</td>
         <td>Market Cap</td>
         <td>24h %</td>
         <td>Add To Portfolio</td>
@@ -21,9 +34,9 @@
         <td>{{coin.rank}}</td>
         <td>{{coin.symbol}}</td>
         <td>here logo</td>
-        <td>{{coin.priceUsd}}</td>
-        <td>{{coin.marketCapUsd}}</td>
-        <td>{{coin.changePercent24Hr}}</td>
+        <td>${{coin.priceUsd}}</td>
+        <td>${{coin.marketCapUsd}}</td>
+        <td>{{coin.changePercent24Hr}}%</td>
         <td>
           <button>Add To Portfolio</button>
         </td>
