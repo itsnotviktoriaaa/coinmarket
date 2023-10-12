@@ -19,5 +19,8 @@ export class CoinCapService {
     return this.http.get<{data: Array<AllCoinsType>}>(`https://api.coincap.io/v2/assets?search=${query}`);
   }
 
+  getCoin(nameOfCoin: string):Observable<{data: AllCoinsType}> {
+    return this.http.get<{data: AllCoinsType}>('https://api.coincap.io/v2/assets/' + nameOfCoin);
+  }
 
 }

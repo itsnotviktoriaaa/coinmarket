@@ -8,7 +8,8 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      {path: '', component: MainComponent}
+      {path: '', component: MainComponent},
+      {path: '', loadChildren: () => import('./views/coin/coin.module').then(m => m.CoinModule)}
     ]
   }
 ];

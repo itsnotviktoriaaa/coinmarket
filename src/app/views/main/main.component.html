@@ -59,7 +59,7 @@
       </thead>
 
       <tbody>
-      <tr class="main-table-tbody-tr"
+      <tr class="main-table-tbody-tr" (click)="navigate(coin.id)"
           *ngFor="let coin of allCoins | paginate: { itemsPerPage: 100, currentPage: page, totalItems: allCoins.length }">
         <td>{{coin.rank}}</td>
         <td>{{coin.symbol}}</td>
@@ -69,7 +69,7 @@
         <td>${{coin.marketCapUsd}}</td>
         <td>{{coin.changePercent24Hr}}%</td>
         <td>
-          <button>Add To Portfolio</button>
+          <button (click)="addToPortfolio($event)">Add To Portfolio</button>
         </td>
       </tr>
       </tbody>

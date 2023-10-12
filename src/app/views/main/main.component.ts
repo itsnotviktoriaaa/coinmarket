@@ -85,8 +85,7 @@ export class MainComponent implements OnInit {
   }
 
   selectProduct(id: string): void {
-    // this.router.navigate(['/coin/' + id]);
-    console.log('При клике будет пользователь попадать на страницу монеты и мы закрываем блок потом полностью этот и очищаем поле');
+    this.router.navigate(['/coin/' + id]);
     this.searchField.setValue('');
     this.searchCoins = [];
   }
@@ -163,6 +162,14 @@ export class MainComponent implements OnInit {
 
     }
 
+  }
+
+  navigate(idOfCoin: string) :void {
+    this.router.navigate(['/coin/' + idOfCoin]);
+  }
+
+  addToPortfolio(event: Event) {
+    event.stopPropagation();
   }
 
 }

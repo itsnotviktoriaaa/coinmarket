@@ -1,0 +1,35 @@
+<div class="detail" *ngIf="coin">
+  <div class="container">
+    <div class="detail-back">
+      <button class="back-button" (click)="backOnMainPage()">Вернуться назад</button>
+    </div>
+    <div class="detail-coin-items">
+      <div class="detail-coin-item detail-coin-info">
+        <div class="detail-coin-info-short">
+          <div class="detail-coin-info-short-logo"
+               style="background-image: url({{pathToLogo + coin.symbol.toLowerCase() + '@2x.png'}})"></div>
+          <div class="detail-coin-info-short-name">{{coin.name}}</div>
+          <div class="detail-coin-info-short-symbol">{{coin.symbol}}</div>
+          <div class="detail-coin-info-short-rank">#{{coin.rank}}</div>
+        </div>
+        <div class="detail-coin-info-price-usd">${{coin.priceUsd}}</div>
+        <div class="detail-coin-info-text">
+          <div class="detail-coin-info-text-title">Supply:</div>
+          <div class="detail-coin-info-text-number">{{coin.supply}} {{coin.symbol}}</div>
+        </div>
+        <div class="detail-coin-info-text">
+          <div class="detail-coin-info-text-title">Market cap:</div>
+          <div class="detail-coin-info-text-number">{{coin.marketCapUsd}}</div>
+        </div>
+        <div class="detail-coin-info-text">
+          <div class="detail-coin-info-text-title">Max supply:</div>
+          <div class="detail-coin-info-text-number">{{coin.maxSupply}} {{coin.symbol}}</div>
+        </div>
+        <div class="detail-coin-info-button">
+          <button class="detail-button">Add To Portfolio</button>
+        </div>
+      </div>
+      <div class="detail-coin-item detail-coin-chart"></div>
+    </div>
+  </div>
+</div>

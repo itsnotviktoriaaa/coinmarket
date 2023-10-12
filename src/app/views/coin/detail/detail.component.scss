@@ -1,0 +1,81 @@
+.detail {
+  padding-top: 70px;
+  padding-bottom: 100px;
+
+  .detail-back {
+    margin-bottom: 40px;
+
+    .back-button {
+      background-color: #cecece;
+      width: 170px;
+
+      &:hover {
+        background-color: #b4b4b4;
+      }
+    }
+  }
+
+  .detail-coin-items {
+    display: flex;
+    justify-content: space-between;
+
+    .detail-coin-item {
+      &.detail-coin-info {
+        width: 400px;
+
+        .detail-coin-info-short {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .detail-coin-info-short-logo {
+            background-size: 35px 35px;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 35px;
+            height: 35px;
+          }
+
+        }
+
+        .detail-coin-info-price-usd {
+          margin-top: 20px;
+          font-family: "Inter", sans-serif;
+          font-weight: 700;
+          font-size: 20px;
+        }
+
+        .detail-coin-info-text {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 20px;
+
+          .detail-coin-info-text-title {
+
+          }
+
+          .detail-coin-info-text-number {
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+          }
+        }
+
+        .detail-coin-info-button {
+          margin-top: 20px;
+
+          .detail-button {
+            width: 200px;
+          }
+        }
+      }
+
+
+    }
+
+
+
+  }
+
+}
+
