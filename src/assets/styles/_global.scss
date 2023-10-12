@@ -7,3 +7,7 @@ html, body {
   max-width: $container-width;
   margin: 0 auto;
 }
+
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: #af5917 !important;
+}

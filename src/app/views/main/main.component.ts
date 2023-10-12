@@ -5,6 +5,7 @@ import {CoinCapService} from "../../shared/services/coin-cap.service";
 import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs";
+import {LoaderService} from "../../shared/services/loader.service";
 
 @Component({
   selector: 'app-main',
@@ -14,6 +15,7 @@ import {debounceTime} from "rxjs";
 export class MainComponent implements OnInit {
 
   constructor(private coinCapService: CoinCapService,
+              private loaderService: LoaderService,
               private router: Router) {
   }
 
