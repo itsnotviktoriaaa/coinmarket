@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {AllCoinsType} from "../../../types/all-coins.type";
+import {CoinHistoryType} from "../../../types/coin-history.type";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,13 @@ export class CoinCapService {
 
   getCoin(nameOfCoin: string):Observable<{data: AllCoinsType}> {
     return this.http.get<{data: AllCoinsType}>('https://api.coincap.io/v2/assets/' + nameOfCoin);
+  }
+
+  getCoinHistory(nameOfCoin: string):Observable<Array<CoinHistoryType>> {
+    return this.http.get<{data: Array<CoinHistoryType>}>('https://api.coincap.io/v2/assets/' + nameOfCoin + '/history?interval=' + 'd1')
+      .pipe(
+        map((result: {data: Array<CoinHistoryType>}) => result.data)
+      )
   }
 
 }

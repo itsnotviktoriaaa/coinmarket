@@ -16,12 +16,10 @@
   }
 
   .detail-coin-items {
-    display: flex;
-    justify-content: space-between;
 
     .detail-coin-item {
       &.detail-coin-info {
-        width: 400px;
+        width: 460px;
 
         .detail-coin-info-short {
           display: flex;
@@ -66,6 +64,33 @@
 
           .detail-button {
             width: 200px;
+          }
+        }
+      }
+
+      &.detail-coin-chart {
+        margin-top: 50px;
+
+        .chart-buttons {
+          display: flex;
+          align-items: center;
+          column-gap: 20px;
+
+          .chart-button {
+
+            .chart-btn {
+              width: 50px;
+              height: 25px;
+              padding: 3px 5px;
+              box-sizing: border-box;
+              background-color: #8E8E8E;
+              font-size: 14px;
+              color: #FFFFFF;
+
+              &:hover {
+                background-color: #797979;
+              }
+            }
           }
         }
       }

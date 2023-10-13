@@ -9,7 +9,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {path: '', component: MainComponent},
-      {path: '', loadChildren: () => import('./views/coin/coin.module').then(m => m.CoinModule)}
+      {path: '', loadChildren: () => import('./views/coin/coin.module').then(m => m.CoinModule)},
+      {path: '**', redirectTo: ''}
     ]
   }
 ];
