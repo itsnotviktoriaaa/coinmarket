@@ -56,6 +56,9 @@ export class DetailComponent implements OnInit, AfterViewInit {
   millisecondsFrom1970ToTodayIsEnd: number = 0;
   start: number = 0;
 
+  button1d = true;
+  button7d = false;
+  button1m = false;
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -174,7 +177,7 @@ export class DetailComponent implements OnInit, AfterViewInit {
       if (waitVariablesFromOnInit) {
 
         this.transformHistory();
-        
+
         if (!this.isFirstClickIn7Days) {
           this.callChart();
         } else {
@@ -194,7 +197,21 @@ export class DetailComponent implements OnInit, AfterViewInit {
     this.router.navigate(['']);
   }
 
-  showNewChart(interval: IntervalForChartType, difference: DifferenceForChartType, quantityOfDays?: '7days'): void {
+  showNewChart(nameOfButton: string, interval: IntervalForChartType, difference: DifferenceForChartType, quantityOfDays?: '7days'): void {
+
+    if (nameOfButton === 'button7d') {
+      this.button1d = false;
+      this.button7d = true;
+      this.button1m = false;
+    } else if (nameOfButton === 'button1m') {
+      this.button1d = false;
+      this.button7d = false;
+      this.button1m = true;
+    } else if(nameOfButton === 'button1d') {
+      this.button1d = true;
+      this.button7d = false;
+      this.button1m = false;
+    }
 
     if (this.myLineChart) {
       this.myLineChart.destroy();
