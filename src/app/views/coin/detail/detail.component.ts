@@ -6,7 +6,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {environment} from "../../../../environments/environment.development";
 import {Chart, ChartType} from "chart.js/auto";
 import {CoinHistoryType} from "../../../../types/coin-history.type";
-import {Subject, Subscription} from "rxjs";
+import {Subject} from "rxjs";
+import {IntervalForChartType} from "../../../../types/interval-for-chart.type";
+import {DifferenceForChartType} from "../../../../types/difference-for-chart.type";
 
 
 @Component({
@@ -40,10 +42,21 @@ export class DetailComponent implements OnInit, AfterViewInit {
 
   myChartInitialized: HTMLCanvasElement | null = null;
 
-  isChoseInterval: string = '';
+
+  choseInterval: IntervalForChartType | null = null;
+  h1Interval: IntervalForChartType.h1 = IntervalForChartType.h1;
+  d1Interval: IntervalForChartType.d1 = IntervalForChartType.d1;
+
+
+  differenceFor1Day: DifferenceForChartType.differenceFor1Day = DifferenceForChartType.differenceFor1Day;
+  differenceFor31Days: DifferenceForChartType.differenceFor31Days = DifferenceForChartType.differenceFor31Days;
+
+
+  millisecondsFrom1970ToTodayIsEnd: number = 0;
+  start: number = 0;
+
 
   ngOnInit() {
-
     this.activatedRoute.params.subscribe(params => {
 
       this.coinCapService.getCoin(params['id'])
@@ -59,25 +72,51 @@ export class DetailComponent implements OnInit, AfterViewInit {
           }
         });
 
-      this.coinCapService.getCoinHistory(params['id'])
-        .subscribe({
-          next: (data: CoinHistoryType[]) => {
-
-            this.historyOfCoin = data;
-
-            this.historyOfCoin.forEach((item: CoinHistoryType) => {
-              item.date = new Date(item.date);
-            });
-
-            this.waitVariablesFromOnInit$.next(true);
-          },
-          error: () => {
-            //
-          }
-        })
+      this.getHistory(params['id']);
 
     });
 
+  }
+
+  getHistory(idOfCoin: string, interval?: IntervalForChartType, difference?: DifferenceForChartType) {
+
+    if (difference) {
+      this.getTimeFromTodayTo1970(difference);
+    } else {
+      this.getTimeFromTodayTo1970();
+    }
+
+    this.choseInterval = this.h1Interval;
+    if (interval) {
+      this.choseInterval = interval;
+    }
+
+    this.coinCapService.getCoinHistory(idOfCoin, this.choseInterval, this.start, this.millisecondsFrom1970ToTodayIsEnd)
+      .subscribe({
+        next: (data: CoinHistoryType[]) => {
+
+          this.historyOfCoin = data;
+
+          this.historyOfCoin.forEach((item: CoinHistoryType) => {
+            item.date = new Date(item.date);
+          });
+
+          this.waitVariablesFromOnInit$.next(true);
+        },
+        error: () => {
+          //
+        }
+      });
+  }
+
+  getTimeFromTodayTo1970(difference?: DifferenceForChartType): void {
+    let diffToCalculateStartAndEnd: DifferenceForChartType = this.differenceFor1Day;
+    if (difference) {
+      diffToCalculateStartAndEnd = difference;
+    }
+
+    this.millisecondsFrom1970ToTodayIsEnd = new Date().getTime();
+    this.start = this.millisecondsFrom1970ToTodayIsEnd - diffToCalculateStartAndEnd;
   }
 
   transformHistory(): void {
@@ -86,7 +125,10 @@ export class DetailComponent implements OnInit, AfterViewInit {
         let date = (item.date as Date).getDate();
         let month = (item.date as Date).getMonth() + 1;
         let year = (item.date as Date).getFullYear();
-        return year + '-' + month + '-' + date;
+
+        let hour = (item.date as Date).getHours();
+        let minutes = (item.date as Date).getMinutes();
+        return year + '-' + month + '-' + date + ' ' + hour + ':' + minutes;
       });
 
       this.priceUsdFromHistory = this.historyOfCoin.map((item: CoinHistoryType) => {
@@ -96,6 +138,8 @@ export class DetailComponent implements OnInit, AfterViewInit {
     }
 
   }
+
+
 
   callChart(): void {
 
@@ -123,12 +167,10 @@ export class DetailComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
     this.myChartInitialized = this.myChart.nativeElement;
 
     this.waitVariablesFromOnInit$.subscribe((waitVariablesFromOnInit: boolean) => {
       if (waitVariablesFromOnInit) {
-
         this.transformHistory();
         this.callChart();
         console.log(this.labels);
@@ -143,8 +185,13 @@ export class DetailComponent implements OnInit, AfterViewInit {
     this.router.navigate(['']);
   }
 
-  showChart(interval: string): void {
-    this.isChoseInterval = interval;
+  showNewChart(interval: IntervalForChartType, difference: DifferenceForChartType): void {
+
+    if (this.myLineChart) {
+      this.myLineChart.destroy();
+    }
+
+    this.getHistory(this.coin!.id, interval, difference);
   }
 
 }

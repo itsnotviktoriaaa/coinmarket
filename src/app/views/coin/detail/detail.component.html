@@ -32,13 +32,13 @@
       <div class="detail-coin-item detail-coin-chart">
         <div class="chart-buttons">
           <div class="chart-button">
-            <button class="chart-btn">d1</button>
+            <button class="chart-btn" (click)="showNewChart(h1Interval, differenceFor1Day)">The last 1 day</button>
           </div>
           <div class="chart-button">
-            <button class="chart-btn" (click)="showChart('')">d7</button>
+            <button class="chart-btn">The last 7 days</button>
           </div>
           <div class="chart-button">
-            <button class="chart-btn">m1</button>
+            <button class="chart-btn" (click)="showNewChart(d1Interval, differenceFor31Days)">The last 1 month</button>
           </div>
         </div>
         <div class="chart-wrapper">

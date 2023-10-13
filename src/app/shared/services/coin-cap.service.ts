@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {AllCoinsType} from "../../../types/all-coins.type";
 import {CoinHistoryType} from "../../../types/coin-history.type";
+import {IntervalForChartType} from "../../../types/interval-for-chart.type";
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,13 @@ export class CoinCapService {
     return this.http.get<{data: AllCoinsType}>('https://api.coincap.io/v2/assets/' + nameOfCoin);
   }
 
-  getCoinHistory(nameOfCoin: string):Observable<Array<CoinHistoryType>> {
-    return this.http.get<{data: Array<CoinHistoryType>}>('https://api.coincap.io/v2/assets/' + nameOfCoin + '/history?interval=' + 'd1')
+  getCoinHistory(nameOfCoin: string, interval: IntervalForChartType, start: number, end: number):Observable<Array<CoinHistoryType>> {
+    return this.http.get<{data: Array<CoinHistoryType>}>('https://api.coincap.io/v2/assets/' + nameOfCoin + '/history?interval=' + interval + '&start=' + start + '&end=' + end)
       .pipe(
         map((result: {data: Array<CoinHistoryType>}) => result.data)
       )
   }
+
+  // bitcoin/history?start=1694617345592&end=1697209345592&interval=h12
 
 }
