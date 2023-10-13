@@ -35,7 +35,7 @@
             <button class="chart-btn" (click)="showNewChart(h1Interval, differenceFor1Day)">The last 1 day</button>
           </div>
           <div class="chart-button">
-            <button class="chart-btn">The last 7 days</button>
+            <button class="chart-btn" (click)="showNewChart(d1Interval, differenceFor31Days, '7days')">The last 7 days</button>
           </div>
           <div class="chart-button">
             <button class="chart-btn" (click)="showNewChart(d1Interval, differenceFor31Days)">The last 1 month</button>

@@ -51,6 +51,7 @@ export class DetailComponent implements OnInit, AfterViewInit {
   differenceFor1Day: DifferenceForChartType.differenceFor1Day = DifferenceForChartType.differenceFor1Day;
   differenceFor31Days: DifferenceForChartType.differenceFor31Days = DifferenceForChartType.differenceFor31Days;
 
+  isFirstClickIn7Days: boolean = false;
 
   millisecondsFrom1970ToTodayIsEnd: number = 0;
   start: number = 0;
@@ -171,10 +172,18 @@ export class DetailComponent implements OnInit, AfterViewInit {
 
     this.waitVariablesFromOnInit$.subscribe((waitVariablesFromOnInit: boolean) => {
       if (waitVariablesFromOnInit) {
+
         this.transformHistory();
-        this.callChart();
-        console.log(this.labels);
-        console.log(this.priceUsdFromHistory);
+        
+        if (!this.isFirstClickIn7Days) {
+          this.callChart();
+        } else {
+          this.historyOfCoin = this.historyOfCoin!.slice(-7);
+          this.labels = this.labels!.slice(-7);
+          this.priceUsdFromHistory = this.priceUsdFromHistory!.slice(-7);
+          this.callChart();
+          this.isFirstClickIn7Days = false;
+        }
 
       }
     });
@@ -185,10 +194,27 @@ export class DetailComponent implements OnInit, AfterViewInit {
     this.router.navigate(['']);
   }
 
-  showNewChart(interval: IntervalForChartType, difference: DifferenceForChartType): void {
+  showNewChart(interval: IntervalForChartType, difference: DifferenceForChartType, quantityOfDays?: '7days'): void {
 
     if (this.myLineChart) {
       this.myLineChart.destroy();
+    }
+
+    if (quantityOfDays) {
+      if (this.historyOfCoin?.length === 30 || this.historyOfCoin?.length === 31 || this.historyOfCoin?.length === 28 || this.historyOfCoin?.length === 29) {
+
+        this.historyOfCoin = this.historyOfCoin.slice(-7);
+        this.labels = this.labels!.slice(-7);
+        this.priceUsdFromHistory = this.priceUsdFromHistory!.slice(-7);
+        this.callChart();
+        return;
+
+      } else {
+
+        this.isFirstClickIn7Days = true;
+        this.getHistory(this.coin!.id, interval, difference);
+        return;
+      }
     }
 
     this.getHistory(this.coin!.id, interval, difference);
