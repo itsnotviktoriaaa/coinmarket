@@ -2,13 +2,14 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import {AllCoinsType} from "../../../types/all-coins.type";
 import {CoinCapService} from "../../shared/services/coin-cap.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs";
 import {environment} from "../../../environments/environment.development";
 import {SortPriceUsdType} from "../../../types/sort-price-usd.type";
 import {SortMarketCapUsdType} from "../../../types/sort-market-cap-usd.type";
 import {SortChangePercent24HrType} from "../../../types/sort-change-percent-24-hr.type";
+import {ActiveParamsType} from "../../../types/active-params.type";
 
 @Component({
   selector: 'app-main',
@@ -18,7 +19,8 @@ import {SortChangePercent24HrType} from "../../../types/sort-change-percent-24-h
 export class MainComponent implements OnInit {
 
   constructor(private coinCapService: CoinCapService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
   }
 
   pathToLogo = environment.pathToLogo;
@@ -43,7 +45,23 @@ export class MainComponent implements OnInit {
   changePercent24HrDown = SortChangePercent24HrType.changePercent24HrDown;
   changePercent24HrUp = SortChangePercent24HrType.changePercent24HrUp;
 
+  activeParams: ActiveParamsType = {};
+
   ngOnInit() {
+
+    this.activatedRoute.queryParams
+      .subscribe((params: Params) => {
+
+        if (params.hasOwnProperty('page')) {
+          this.activeParams.page = params['page'];
+          this.page = params['page'];
+        }
+
+        if (params.hasOwnProperty('search')) {
+          this.activeParams.search = params['search'];
+        }
+
+      });
 
     this.searchField.valueChanges
       .pipe(
@@ -101,6 +119,12 @@ export class MainComponent implements OnInit {
   }
 
   movePageUp () {
+    this.activeParams.page = this.page;
+
+    this.router.navigate(['/'], {
+      queryParams: this.activeParams
+    });
+
     window.scroll(0, 0);
   }
 
