@@ -4,7 +4,7 @@ import {AllCoinsType} from "../../../types/all-coins.type";
 import {CoinCapService} from "../../shared/services/coin-cap.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
-import {debounceTime} from "rxjs";
+import {debounceTime, tap} from "rxjs";
 import {environment} from "../../../environments/environment.development";
 import {SortPriceUsdType} from "../../../types/sort-price-usd.type";
 import {SortMarketCapUsdType} from "../../../types/sort-market-cap-usd.type";
@@ -49,6 +49,33 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
 
+    this.searchField.valueChanges
+      .pipe(
+        tap((x) => {
+
+          //т.е. так как слежу за инпутом с помощью valueChanges я сразу же по мере ввода в адресную строку добавляю query-параметр search и при обновлении адерс остаётся тот же соответственно, и т.к. обновила, то сработал OnInit, а значит в моём activeParams сохраняются значения, которые я могу взять
+          this.activeParams.search = x;
+          this.router.navigate([''], {
+            queryParams: this.activeParams
+          });
+
+        }),
+        debounceTime(500)
+      )
+      .subscribe((value) => {
+        if (value && value.length > 2) {
+          this.coinCapService.searchProducts(value)
+            .subscribe((data: {data: Array<AllCoinsType>}) => {
+              this.searchCoins = data.data;
+              this.showedSearch = true;
+            });
+        } else {
+          this.searchCoins = [];
+        }
+      });
+
+    //важно, чтобы код this.searchField.valueChanges... был над this.activatedRoute.queryParams. Чтобы мы успели подписаться на searchField через valueChanges, а затем уже устанавливали в searchField с помощью setValue параметр, который есть в адресной строке. И поэтому я уже подписана и жду изменение searchField, как только пришло изменение/значение, то срабатывает подписка и запрашиваем на сервере уже поиск
+
     this.activatedRoute.queryParams
       .subscribe((params: Params) => {
 
@@ -59,25 +86,11 @@ export class MainComponent implements OnInit {
 
         if (params.hasOwnProperty('search')) {
           this.activeParams.search = params['search'];
+          this.searchField.setValue(params['search']);
         }
 
       });
 
-    this.searchField.valueChanges
-      .pipe(
-        debounceTime(500)
-      )
-      .subscribe((value) => {
-          if (value && value.length > 2) {
-            this.coinCapService.searchProducts(value)
-              .subscribe((data: {data: Array<AllCoinsType>}) => {
-                this.searchCoins = data.data;
-                this.showedSearch = true;
-              });
-          } else {
-            this.searchCoins = [];
-          }
-      });
 
     this.coinCapService.getAllCoins()
       .subscribe({
@@ -107,7 +120,6 @@ export class MainComponent implements OnInit {
 
   selectProduct(id: string): void {
     this.router.navigate(['/coin/' + id]);
-    this.searchField.setValue('');
     this.searchCoins = [];
   }
 
