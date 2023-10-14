@@ -1,1 +1,14 @@
-<!--<p>header works!</p>-->
+<header class="header">
+  <div class="container">
+    <div class="header-items">
+      <div class="header-item header-item-popular-coins">
+        <div class="header-item-popular-coin" *ngFor="let popularCoin of popularCoins">
+          <div class="header-item-popular-image" style="background-image: url({{pathToLogo + popularCoin.symbol.toLowerCase() + '@2x.png'}})"></div>
+          <div class="header-item-popular-rank">#{{popularCoin.rank}}</div>
+          <div class="header-item-popular-symbol">{{popularCoin.symbol}}</div>
+          <div class="header-item-popular-price">{{popularCoin.priceUsd}}$</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -92,7 +92,7 @@ export class MainComponent implements OnInit {
       });
 
 
-    this.coinCapService.getAllCoins()
+    this.coinCapService.getAllCoins(2000)
       .subscribe({
         next: (data: {data: Array<AllCoinsType>}) => {
           this.allCoins = data.data;

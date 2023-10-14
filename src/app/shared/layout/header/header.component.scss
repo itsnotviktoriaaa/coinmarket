@@ -1,0 +1,39 @@
+.header {
+  padding-top: 40px;
+  padding-bottom: 30px;
+
+  .header-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-item-popular-coins {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 20px;
+      font-size: 10px;
+
+      .header-item-popular-coin {
+        display: flex;
+        align-items: center;
+        column-gap: 2px;
+
+        .header-item-popular-image {
+          background-size: 15px 15px;
+          background-repeat: no-repeat;
+          background-position: center;
+          width: 15px;
+          height: 15px;
+        }
+
+        .header-item-popular-rank, .header-item-popular-price {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+}
+
+
