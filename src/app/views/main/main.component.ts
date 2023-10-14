@@ -65,13 +65,16 @@ export class MainComponent implements OnInit {
       .subscribe({
         next: (data: {data: Array<AllCoinsType>}) => {
           this.allCoins = data.data;
+
           this.allCoins.forEach((item: AllCoinsType) => {
             item.priceUsd = Math.trunc(+(item.priceUsd) * 100) / 100;
             item.marketCapUsd = Math.trunc(+(item.marketCapUsd) * 100) / 100;
             item.changePercent24Hr = +(item.changePercent24Hr);
           });
 
-          this.allCoins = this.allCoins.filter((item: AllCoinsType) => {
+          let allCoinsCopy = this.allCoins.slice();
+
+          this.allCoins = allCoinsCopy.filter((item: AllCoinsType) => {
             return item.priceUsd > 0 && item.marketCapUsd > 0 && item.changePercent24Hr != null;
             //with help (item.changePercent24Hr != null) exclude empty lines without percentages as well
           });
@@ -104,7 +107,8 @@ export class MainComponent implements OnInit {
   sortOfPriceUsd(): void {
     if (this.priceUsdSortValue !== this.priceUp) {
 
-      this.allCoins = this.allCoins.sort((a: AllCoinsType, b: AllCoinsType) => {
+      let allCoinsCopy = this.allCoins.slice();
+      this.allCoins = allCoinsCopy.sort((a: AllCoinsType, b: AllCoinsType) => {
         return a.priceUsd - b.priceUsd;
       });
 
@@ -112,7 +116,8 @@ export class MainComponent implements OnInit {
 
     } else {
 
-      this.allCoins = this.allCoins.sort((a: AllCoinsType, b: AllCoinsType) => {
+      let allCoinsCopy = this.allCoins.slice();
+      this.allCoins = allCoinsCopy.sort((a: AllCoinsType, b: AllCoinsType) => {
         return b.priceUsd - a.priceUsd;
       });
 
@@ -125,7 +130,9 @@ export class MainComponent implements OnInit {
   sortOfMarketCap(): void {
     if (this.marketCapUsdSortValue !== this.marketCapUp) {
 
-      this.allCoins = this.allCoins.sort((a: AllCoinsType, b: AllCoinsType) => {
+      let allCoinsCopy = this.allCoins.slice();
+
+      this.allCoins = allCoinsCopy.sort((a: AllCoinsType, b: AllCoinsType) => {
         return a.marketCapUsd - b.marketCapUsd;
       });
 
@@ -133,7 +140,9 @@ export class MainComponent implements OnInit {
 
     } else {
 
-      this.allCoins = this.allCoins.sort((a: AllCoinsType, b: AllCoinsType) => {
+      let allCoinsCopy = this.allCoins.slice();
+
+      this.allCoins = allCoinsCopy.sort((a: AllCoinsType, b: AllCoinsType) => {
         return b.marketCapUsd - a.marketCapUsd;
       });
 
@@ -146,7 +155,9 @@ export class MainComponent implements OnInit {
   sortOfChangePercent24Hr(): void {
     if (this.changePercent24HrSortValue !== this.changePercent24HrUp) {
 
-      this.allCoins = this.allCoins.sort((a: AllCoinsType, b: AllCoinsType) => {
+      let allCoinsCopy = this.allCoins.slice();
+
+      this.allCoins = allCoinsCopy.sort((a: AllCoinsType, b: AllCoinsType) => {
         return a.changePercent24Hr - b.changePercent24Hr;
       });
 
@@ -154,7 +165,9 @@ export class MainComponent implements OnInit {
 
     } else {
 
-      this.allCoins = this.allCoins.sort((a: AllCoinsType, b: AllCoinsType) => {
+      let allCoinsCopy = this.allCoins.slice();
+
+      this.allCoins = allCoinsCopy.sort((a: AllCoinsType, b: AllCoinsType) => {
         return b.changePercent24Hr - a.changePercent24Hr;
       });
 

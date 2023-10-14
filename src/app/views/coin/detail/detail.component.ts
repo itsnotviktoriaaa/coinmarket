@@ -125,7 +125,10 @@ export class DetailComponent implements OnInit, AfterViewInit {
 
   transformHistory(): void {
     if (this.historyOfCoin) {
-      this.labels = this.historyOfCoin.map((item: CoinHistoryType) => {
+
+      let historyOfCoinCopy = this.historyOfCoin.slice();
+
+      this.labels = historyOfCoinCopy.map((item: CoinHistoryType) => {
         let date = (item.date as Date).getDate();
         let month = (item.date as Date).getMonth() + 1;
         let year = (item.date as Date).getFullYear();
@@ -135,7 +138,7 @@ export class DetailComponent implements OnInit, AfterViewInit {
         return year + '-' + month + '-' + date + ' ' + hour + ':' + minutes;
       });
 
-      this.priceUsdFromHistory = this.historyOfCoin.map((item: CoinHistoryType) => {
+      this.priceUsdFromHistory = historyOfCoinCopy.map((item: CoinHistoryType) => {
         return Math.trunc(+(item.priceUsd) * 100) / 100;
       });
 
