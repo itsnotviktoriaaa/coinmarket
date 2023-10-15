@@ -59,17 +59,17 @@
       </thead>
 
       <tbody>
-      <tr class="main-table-tbody-tr" (click)="navigate(coin.id)"
+      <tr class="main-table-tbody-tr"
           *ngFor="let coin of allCoins | paginate: { itemsPerPage: 100, currentPage: page, totalItems: allCoins.length }">
-        <td>{{coin.rank}}</td>
-        <td>{{coin.symbol}}</td>
-        <td class="main-logo-coin"
+        <td (click)="navigate(coin.id)">{{coin.rank}}</td>
+        <td (click)="navigate(coin.id)">{{coin.symbol}}</td>
+        <td (click)="navigate(coin.id)" class="main-logo-coin"
             style="background-image: url({{pathToLogo + coin.symbol.toLowerCase() + '@2x.png'}})"></td>
-        <td>${{coin.priceUsd}}</td>
-        <td>${{coin.marketCapUsd}}</td>
-        <td>{{coin.changePercent24Hr}}%</td>
-        <td>
-          <button (click)="addToPortfolio($event)">Add To Portfolio</button>
+        <td (click)="navigate(coin.id)">${{coin.priceUsd}}</td>
+        <td (click)="navigate(coin.id)">${{coin.marketCapUsd}}</td>
+        <td (click)="navigate(coin.id)">{{coin.changePercent24Hr}}%</td>
+        <td class="main-table-tbody-tr-btn">
+          <button class="main-btn" (click)="addToPortfolio(coin)">Add To Portfolio</button>
         </td>
       </tr>
       </tbody>
@@ -78,7 +78,7 @@
     <div class="main-pagination">
       <pagination-controls (click)="movePageUp()" (pageChange)="page = $event"></pagination-controls>
     </div>
-
   </div>
+  <modal-buy-coins [selectedCoinForBuy]="selectedCoinForBuy" [isOpenModal]="isOpenModal" (isCloseModal)="isCloseModal()"></modal-buy-coins>
 </section>
 

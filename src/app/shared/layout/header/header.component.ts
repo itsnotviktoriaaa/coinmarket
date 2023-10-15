@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {CoinCapService} from "../../services/coin-cap.service";
 import {map} from "rxjs";
 import {AllCoinsType} from "../../../../types/all-coins.type";
@@ -16,11 +16,13 @@ export class HeaderComponent implements OnInit {
 
   pathToLogo = environment.pathToLogo;
   popularCoins!: AllCoinsType[];
+  isOpenPopupPortfolioOfCoins: boolean = false;
+  isOpenModalWindow: boolean = false;
 
   ngOnInit(): void {
     this.coinCapService.getAllCoins(3)
       .pipe(
-        map((result: {data: AllCoinsType[]}) => {
+        map((result: { data: AllCoinsType[] }) => {
           return result.data;
         })
       )
@@ -32,6 +34,23 @@ export class HeaderComponent implements OnInit {
         });
 
       });
+
+  }
+
+  toggleOpenPopupPortfolioOfCoins(): void {
+    this.isOpenPopupPortfolioOfCoins = !this.isOpenPopupPortfolioOfCoins;
+  }
+
+  @HostListener('document:click', ['$event'])
+  click(event: Event) {
+
+    if(!(
+      (event.target as Element).closest('.header-item-body') ||
+      (event.target as Element).closest('.header-item-head')
+    )) {
+      this.isOpenPopupPortfolioOfCoins = false;
+    }
+
   }
 
 }

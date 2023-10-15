@@ -47,6 +47,9 @@ export class MainComponent implements OnInit {
 
   activeParams: ActiveParamsType = {};
 
+  selectedCoinForBuy!: AllCoinsType;
+  isOpenModal: boolean = false;
+
   ngOnInit() {
 
     this.searchField.valueChanges
@@ -217,8 +220,13 @@ export class MainComponent implements OnInit {
     this.router.navigate(['/coin/' + idOfCoin]);
   }
 
-  addToPortfolio(event: Event) {
-    event.stopPropagation();
+  addToPortfolio(coin: AllCoinsType) {
+    this.selectedCoinForBuy = coin;
+    this.isOpenModal = true;
+  }
+
+  isCloseModal(): void {
+    this.isOpenModal = false;
   }
 
 }

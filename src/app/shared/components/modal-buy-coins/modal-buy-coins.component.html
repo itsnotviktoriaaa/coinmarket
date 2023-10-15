@@ -1,0 +1,24 @@
+<div *ngIf="selectedCoinForBuy" [class]="{'modal-wrapper': true, 'active': isOpenModal}">
+  <div class="modal">
+    <div class="modal-cancel" (click)="closeModal()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="1.93562" y1="2.6499" x2="13.9564" y2="14.6707" stroke="#A8ABA7" stroke-linecap="round"/>
+        <line x1="13.9238" y1="2.62971" x2="1.90301" y2="14.6505" stroke="#A8ABA7" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="modal-info">
+      <div class="modal-info-image" style="background-image: url({{pathToLogo + selectedCoinForBuy.symbol.toLowerCase() + '@2x.png'}})"></div>
+      <div class="modal-info-symbol">{{selectedCoinForBuy.symbol}}</div>
+      <div class="modal-info-name">{{selectedCoinForBuy.name}}</div>
+      <div class="modal-info-priceUsd">{{selectedCoinForBuy.priceUsd}}$</div>
+    </div>
+    <div class="modal-input">
+      <input class="modal-input-number" (keydown)="keyPressOnInput($event)" [(ngModel)]="countOfCoins" placeholder="quantity of coins buy" type="text">
+    </div>
+    <div class="modal-button" (click)="buyCoins()">
+      <button class="modal-btn">Add</button>
+    </div>
+  </div>
+</div>
+
+

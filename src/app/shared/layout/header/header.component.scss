@@ -32,6 +32,72 @@
         }
       }
     }
+
+    .header-item-portfolio {
+      max-width: 800px;
+      box-sizing: border-box;
+      background-color: bisque;
+      border-radius: 5px;
+      column-gap: 10px;
+      cursor: pointer;
+      position: relative;
+
+      .header-item-head {
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+
+        .header-item-portfolio-name {
+          margin-right: 20px;
+          font-weight: 700;
+        }
+      }
+
+      .header-item-body {
+        display: none;
+        position: absolute;
+        max-width: 800px;
+        top: 60px;
+        right: 0;
+        z-index: 3;
+        background-color: #e8e8e8;
+        padding: 10px 5px;
+        border-radius: 5px;
+        row-gap: 15px;
+        flex-direction: column;
+        cursor: default;
+
+        &.active {
+          display: flex;
+        }
+
+        .header-item-portfolio-popup-coins {
+          .header-item-portfolio-popup-coin {
+            display: flex;
+            align-items: center;
+            background-color: #d9d9d9;
+            border-radius: 5px;
+            column-gap: 20px;
+            padding: 7px;
+            justify-content: space-between;
+
+            .header-item-portfolio-popup-image {
+              width: 25px;
+              height: 25px;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: 25px 25px;
+            }
+
+            .header-item-portfolio-popup-button {
+              .header-item-portfolio-popup-btn {
+                width: 200px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
 }
