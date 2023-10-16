@@ -17,7 +17,7 @@
                *ngIf="coinsFromLocalStorage">{{coinsFromLocalStorage.commonPriceUsdOfAllCoinsInPortfolio}} USD
           </div>
           <div class="header-item-portfolio-value" *ngIf="!coinsFromLocalStorage">0 USD&nbsp;</div>
-          <div class="header-item-portfolio-difference" *ngIf="differenceForToCalculateChangeCommonPriceUsdOfAllCoinsInPortfolioAfterRequest !== 0">{{differenceForToCalculateChangeCommonPriceUsdOfAllCoinsInPortfolioAfterRequest}}</div>
+          <div class="header-item-portfolio-difference" *ngIf="differenceForToCalculateChangeCommonPriceUsdOfAllCoinsInPortfolioAfterRequest !== 0 && percentOfChangeOfCommonPriceUsdOfAllCoinsInPortfolioAfterRequest !== 0">{{differenceForToCalculateChangeCommonPriceUsdOfAllCoinsInPortfolioAfterRequest | addMarkBeforeNumber}}</div>
           <div class="header-item-portfolio-difference-in-percent" *ngIf="percentOfChangeOfCommonPriceUsdOfAllCoinsInPortfolioAfterRequest">({{percentOfChangeOfCommonPriceUsdOfAllCoinsInPortfolioAfterRequest}} %)</div>
         </div>
         <div [class]="{'header-item-body': true, 'active': isOpenPopupPortfolioOfCoins}">

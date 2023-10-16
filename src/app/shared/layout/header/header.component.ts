@@ -113,8 +113,6 @@ export class HeaderComponent implements OnInit {
 
   requestOnBackendForUpdatePriceUsd(): void {
 
-    console.log(this.coinsFromLocalStorage);
-
     if (this.coinsFromLocalStorage) {
       this.oldPriceUsdOfAllCoinsInPortfolio = this.coinsFromLocalStorage.commonPriceUsdOfAllCoinsInPortfolio;
 
@@ -159,7 +157,6 @@ export class HeaderComponent implements OnInit {
 
             if (this.differenceForToCalculateChangeCommonPriceUsdOfAllCoinsInPortfolioAfterRequest !== 0) {
               this.percentOfChangeOfCommonPriceUsdOfAllCoinsInPortfolioAfterRequest = Math.trunc(((this.differenceForToCalculateChangeCommonPriceUsdOfAllCoinsInPortfolioAfterRequest * 100) / this.oldPriceUsdOfAllCoinsInPortfolio) * 100) / 100;
-              console.log(this.percentOfChangeOfCommonPriceUsdOfAllCoinsInPortfolioAfterRequest);
             }
 
           }

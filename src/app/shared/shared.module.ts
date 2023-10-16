@@ -4,13 +4,15 @@ import {LoaderComponent} from "./components/loader/loader.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { ModalBuyCoinsComponent } from './components/modal-buy-coins/modal-buy-coins.component';
 import {FormsModule} from "@angular/forms";
+import { AddMarkBeforeNumberPipe } from './pipes/add-mark-before-number.pipe';
 
 
 
 @NgModule({
   declarations: [
     LoaderComponent,
-    ModalBuyCoinsComponent
+    ModalBuyCoinsComponent,
+    AddMarkBeforeNumberPipe
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import {FormsModule} from "@angular/forms";
   ],
   exports: [
     LoaderComponent,
-    ModalBuyCoinsComponent
+    ModalBuyCoinsComponent,
+    AddMarkBeforeNumberPipe
   ]
 })
 export class SharedModule { }
