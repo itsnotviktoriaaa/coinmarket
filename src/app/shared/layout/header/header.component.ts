@@ -94,7 +94,7 @@ export class HeaderComponent implements OnInit {
           this.coinsFromLocalStorage!.commonPriceUsdOfAllCoinsInPortfolio += item.commonPriceUsdOfBuyingCoins;
         });
 
-          //для удаления конкретно первого объекта с пустыми значениями, т.к в modal-buy-coins понадобилось инициализировать порфтолио уже с нулевым  объектом одним, иначе не считывало при пуше других эту переменную
+        //для удаления конкретно первого объекта с пустыми значениями, т.к в modal-buy-coins понадобилось инициализировать порфтолио уже с нулевым  объектом одним, иначе не считывало при пуше других эту переменную
         let isExistObjectNullInPurchasedCoinsInPortfolio = this.coinsFromLocalStorage.purchasedCoins.some((item) => {
           return item.idOfCoin === '';
         });
@@ -170,7 +170,34 @@ export class HeaderComponent implements OnInit {
 
     if (this.coinsFromLocalStorage) {
       localStorage.setItem('portfolio', JSON.stringify(this.coinsFromLocalStorage));
+    } else {
+      localStorage.removeItem('portfolio');
     }
+
+  }
+
+  removeCoinFromPortfolio(idOfCoin: string): void {
+    this.coinsFromLocalStorage!.purchasedCoins = this.coinsFromLocalStorage!.purchasedCoins.filter((item) => {
+      return item.idOfCoin !== idOfCoin;
+    });
+
+
+    if (this.coinsFromLocalStorage && this.coinsFromLocalStorage.purchasedCoins.length > 0) {
+      this.coinsFromLocalStorage.commonPriceUsdOfAllCoinsInPortfolio = 0;
+
+      this.coinsFromLocalStorage.purchasedCoins.forEach((item) => {
+
+        this.coinsFromLocalStorage!.commonPriceUsdOfAllCoinsInPortfolio += item.commonPriceUsdOfBuyingCoins;
+
+      });
+
+    } else {
+      this.coinsFromLocalStorage = null;
+    }
+
+    this.updatePortfolioInLocalStorage();
+    this.differenceForToCalculateChangeCommonPriceUsdOfAllCoinsInPortfolioAfterRequest = 0;
+    this.percentOfChangeOfCommonPriceUsdOfAllCoinsInPortfolioAfterRequest = 0;
 
   }
 

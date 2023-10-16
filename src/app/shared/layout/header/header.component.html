@@ -30,7 +30,7 @@
               <div class="header-item-portfolio-popup-number">{{purchasedCoin.quantityOfBuyingCoins}}&nbsp;coins</div>
               <div class="header-item-portfolio-popup-common-price">{{purchasedCoin.commonPriceUsdOfBuyingCoins}}$</div>
               <div class="header-item-portfolio-popup-button">
-                <button class="header-item-portfolio-popup-btn">Remove From Portfolio</button>
+                <button class="header-item-portfolio-popup-btn" (click)="removeCoinFromPortfolio(purchasedCoin.idOfCoin)">Remove From Portfolio</button>
               </div>
             </div>
           </div>
