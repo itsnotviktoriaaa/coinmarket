@@ -10,8 +10,14 @@ export class LocalStorageChangeService {
 
   localStorageChange$: Subject<boolean> = new Subject<boolean>();
 
+  requestOnBackendForUpdatePriceUsdIsOver$: Subject<boolean> = new Subject<boolean>();
+
   addToLocalStorage(): void {
     this.localStorageChange$.next(true);
+  }
+
+  requestOnBackendForUpdatePriceUsdIsOver(): void {
+    this.requestOnBackendForUpdatePriceUsdIsOver$.next(true);
   }
 
 }

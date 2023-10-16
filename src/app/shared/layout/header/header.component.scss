@@ -47,6 +47,7 @@
         display: flex;
         align-items: center;
         border-radius: 5px;
+        column-gap: 5px;
 
         .header-item-portfolio-name {
           margin-right: 20px;
@@ -77,6 +78,10 @@
         }
 
         .header-item-portfolio-popup-coins {
+          display: flex;
+          flex-direction: column;
+          row-gap: 15px;
+
           .header-item-portfolio-popup-coin {
             display: flex;
             align-items: center;

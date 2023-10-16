@@ -33,7 +33,7 @@ export class ModalBuyCoinsComponent implements OnInit {
 
   countOfCoins: number | null = null;
 
-  arrayFromPurchasedCoins!: PurchasedCoinsType;
+  arrayFromPurchasedCoins: PurchasedCoinsType;
 
   ngOnInit() {
 
@@ -49,6 +49,8 @@ export class ModalBuyCoinsComponent implements OnInit {
 
   buyCoins() {
 
+    this.getPortfolioFromLocalStorage();
+
     if (this.countOfCoins && this.countOfCoins > 0) {
       this.arrayFromPurchasedCoins.purchasedCoins.push({idOfCoin: this.selectedCoinForBuy.id, priceUsd: this.selectedCoinForBuy.priceUsd, symbol: this.selectedCoinForBuy.symbol, quantityOfBuyingCoins: +this.countOfCoins, commonPriceUsdOfBuyingCoins: this.selectedCoinForBuy.priceUsd * +this.countOfCoins})
       this.arrayFromPurchasedCoins.commonPriceUsdOfAllCoinsInPortfolio += this.selectedCoinForBuy.priceUsd * +this.countOfCoins;
@@ -57,10 +59,6 @@ export class ModalBuyCoinsComponent implements OnInit {
       this.countOfCoins = null;
 
     }
-
-
-    console.log(this.arrayFromPurchasedCoins);
-
 
   }
 
@@ -92,9 +90,13 @@ export class ModalBuyCoinsComponent implements OnInit {
 
     if (portfolioFromLocalStorageStringify) {
       this.arrayFromPurchasedCoins = JSON.parse(portfolioFromLocalStorageStringify);
-    }
+      this.arrayFromPurchasedCoins.commonPriceUsdOfAllCoinsInPortfolio = 0;
+      this.arrayFromPurchasedCoins.purchasedCoins.forEach((item) => {
+        this.arrayFromPurchasedCoins.commonPriceUsdOfAllCoinsInPortfolio += item.commonPriceUsdOfBuyingCoins
+      });
 
-    console.log(this.arrayFromPurchasedCoins);
+      this.arrayFromPurchasedCoins.commonPriceUsdOfAllCoinsInPortfolio = Math.trunc(+(this.arrayFromPurchasedCoins.commonPriceUsdOfAllCoinsInPortfolio) * 100) / 100;
+    }
 
   }
 
