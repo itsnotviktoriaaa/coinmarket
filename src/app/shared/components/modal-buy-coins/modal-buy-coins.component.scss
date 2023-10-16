@@ -59,6 +59,11 @@
     .modal-button {
       .modal-btn {
         height: 47px;
+
+        &:disabled {
+          background-color: gray;
+          cursor: not-allowed;
+        }
       }
     }
 

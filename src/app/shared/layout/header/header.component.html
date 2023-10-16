@@ -13,24 +13,29 @@
       <div class="header-item header-item-portfolio wrapper-portfolio">
         <div class="header-item-head" (click)="toggleOpenPopupPortfolioOfCoins()">
           <div class="header-item-portfolio-name">Portfolio Value:</div>
-          <div class="header-item-portfolio-value">0 USD</div>
+          <div class="header-item-portfolio-value"
+               *ngIf="coinsFromLocalStorage">{{coinsFromLocalStorage.commonPriceUsdOfAllCoinsInPortfolio}} USD
+          </div>
+          <div class="header-item-portfolio-value" *ngIf="!coinsFromLocalStorage">0 USD</div>
           <div class="header-item-portfolio-difference">+2,38</div>
           <div class="header-item-portfolio-difference-in-percent">(1,38 %)</div>
         </div>
-       <div [class]="{'header-item-body': true, 'active': isOpenPopupPortfolioOfCoins}">
-         <div class="header-item-portfolio-popup-coins">
-           <div class="header-item-portfolio-popup-coin" *ngFor="let popularCoin of popularCoins">
-             <div class="header-item-portfolio-popup-image" style="background-image: url({{pathToLogo + popularCoin.symbol.toLowerCase() + '@2x.png'}})"></div>
-             <div class="header-item-portfolio-popup-rank">#{{popularCoin.rank}}</div>
-             <div class="header-item-portfolio-popup-symbol">{{popularCoin.symbol}}</div>
-             <div class="header-item-portfolio-popup-number">5coins</div>
-             <div class="header-item-portfolio-popup-price">{{popularCoin.priceUsd}}$</div>
-             <div class="header-item-portfolio-popup-button">
-               <button class="header-item-portfolio-popup-btn">Remove From Portfolio</button>
-             </div>
-           </div>
-         </div>
-       </div>
+        <div [class]="{'header-item-body': true, 'active': isOpenPopupPortfolioOfCoins}">
+          <div class="header-item-portfolio-popup-coins" *ngIf="coinsFromLocalStorage">
+            <div class="header-item-portfolio-popup-coin"
+                 *ngFor="let purchasedCoin of coinsFromLocalStorage.purchasedCoins">
+              <div class="header-item-portfolio-popup-image"
+                   style="background-image: url({{pathToLogo + purchasedCoin.symbol.toLowerCase() + '@2x.png'}})"></div>
+              <div class="header-item-portfolio-popup-id">{{purchasedCoin.idOfCoin}}</div>
+              <div class="header-item-portfolio-popup-number">{{purchasedCoin.quantityOfBuyingCoins}}&nbsp;coins</div>
+              <div class="header-item-portfolio-popup-common-price">{{purchasedCoin.commonPriceUsdOfBuyingCoins}}$</div>
+              <div class="header-item-portfolio-popup-button">
+                <button class="header-item-portfolio-popup-btn">Remove From Portfolio</button>
+              </div>
+            </div>
+          </div>
+          <div class="header-item-body-substrate" *ngIf="!coinsFromLocalStorage">You haven't got coins in portfolio</div>
+        </div>
       </div>
     </div>
   </div>

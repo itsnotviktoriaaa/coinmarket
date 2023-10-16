@@ -16,7 +16,7 @@
       <input class="modal-input-number" (keydown)="keyPressOnInput($event)" [(ngModel)]="countOfCoins" placeholder="quantity of coins buy" type="text">
     </div>
     <div class="modal-button" (click)="buyCoins()">
-      <button class="modal-btn">Add</button>
+      <button class="modal-btn" [disabled]="countOfCoins == 0 || countOfCoins === null">Add</button>
     </div>
   </div>
 </div>

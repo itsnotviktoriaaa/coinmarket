@@ -46,10 +46,15 @@
         padding: 15px 20px;
         display: flex;
         align-items: center;
+        border-radius: 5px;
 
         .header-item-portfolio-name {
           margin-right: 20px;
           font-weight: 700;
+        }
+
+        &:hover {
+          background-color: #d0b79f;
         }
       }
 
@@ -82,8 +87,8 @@
             justify-content: space-between;
 
             .header-item-portfolio-popup-image {
-              width: 25px;
-              height: 25px;
+              width: 40px;
+              height: 40px;
               background-position: center;
               background-repeat: no-repeat;
               background-size: 25px 25px;
@@ -95,6 +100,11 @@
               }
             }
           }
+        }
+
+        .header-item-body-substrate {
+          width: 320px;
+          text-align: center;
         }
       }
     }
