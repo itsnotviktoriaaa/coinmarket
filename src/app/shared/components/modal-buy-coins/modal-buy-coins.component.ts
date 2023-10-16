@@ -52,6 +52,28 @@ export class ModalBuyCoinsComponent implements OnInit {
     this.getPortfolioFromLocalStorage();
 
     if (this.countOfCoins && this.countOfCoins > 0) {
+
+      let isExistingCoinInPortfolio = this.arrayFromPurchasedCoins.purchasedCoins.filter((item) => {
+        return item.idOfCoin === this.selectedCoinForBuy.id;
+      });
+
+
+      if (isExistingCoinInPortfolio.length > 0) {
+        //удалить до этого существующий уже коин, но перед этим сохранить его данные, чтобы приплюсовать к выбранному опять коину
+
+        this.arrayFromPurchasedCoins.purchasedCoins = this.arrayFromPurchasedCoins.purchasedCoins.filter((item) => {
+          return item.idOfCoin !== this.selectedCoinForBuy.id;
+        });
+
+        this.arrayFromPurchasedCoins.purchasedCoins.push({idOfCoin: this.selectedCoinForBuy.id, priceUsd: +this.selectedCoinForBuy.priceUsd + (+isExistingCoinInPortfolio[0].priceUsd), symbol: this.selectedCoinForBuy.symbol, quantityOfBuyingCoins: isExistingCoinInPortfolio[0].quantityOfBuyingCoins + (+this.countOfCoins), commonPriceUsdOfBuyingCoins: (this.selectedCoinForBuy.priceUsd * +this.countOfCoins) + isExistingCoinInPortfolio[0].commonPriceUsdOfBuyingCoins})
+        this.arrayFromPurchasedCoins.commonPriceUsdOfAllCoinsInPortfolio += this.selectedCoinForBuy.priceUsd * +this.countOfCoins;
+
+        this.addToLocalStorage();
+        this.countOfCoins = null;
+
+        return;
+      }
+
       this.arrayFromPurchasedCoins.purchasedCoins.push({idOfCoin: this.selectedCoinForBuy.id, priceUsd: this.selectedCoinForBuy.priceUsd, symbol: this.selectedCoinForBuy.symbol, quantityOfBuyingCoins: +this.countOfCoins, commonPriceUsdOfBuyingCoins: this.selectedCoinForBuy.priceUsd * +this.countOfCoins})
       this.arrayFromPurchasedCoins.commonPriceUsdOfAllCoinsInPortfolio += this.selectedCoinForBuy.priceUsd * +this.countOfCoins;
 
