@@ -12,12 +12,18 @@ export class LocalStorageChangeService {
 
   requestOnBackendForUpdatePriceUsdIsOver$: Subject<boolean> = new Subject<boolean>();
 
+  notExistCoinsInPortfolio$: Subject<boolean> = new Subject<boolean>();
+
   addToLocalStorage(): void {
     this.localStorageChange$.next(true);
   }
 
   requestOnBackendForUpdatePriceUsdIsOver(): void {
     this.requestOnBackendForUpdatePriceUsdIsOver$.next(true);
+  }
+
+  notExistCoinsInPortfolio(): void {
+    this.notExistCoinsInPortfolio$.next(true);
   }
 
 }

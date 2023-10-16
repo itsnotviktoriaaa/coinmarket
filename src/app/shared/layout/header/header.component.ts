@@ -181,9 +181,9 @@ export class HeaderComponent implements OnInit {
       return item.idOfCoin !== idOfCoin;
     });
 
+    this.coinsFromLocalStorage!.commonPriceUsdOfAllCoinsInPortfolio = 0;
 
     if (this.coinsFromLocalStorage && this.coinsFromLocalStorage.purchasedCoins.length > 0) {
-      this.coinsFromLocalStorage.commonPriceUsdOfAllCoinsInPortfolio = 0;
 
       this.coinsFromLocalStorage.purchasedCoins.forEach((item) => {
 
@@ -191,13 +191,19 @@ export class HeaderComponent implements OnInit {
 
       });
 
+
     } else {
       this.coinsFromLocalStorage = null;
+
+      //тут сообщить модальному
+      this.localStorageChangeService.notExistCoinsInPortfolio();
     }
 
     this.updatePortfolioInLocalStorage();
     this.differenceForToCalculateChangeCommonPriceUsdOfAllCoinsInPortfolioAfterRequest = 0;
     this.percentOfChangeOfCommonPriceUsdOfAllCoinsInPortfolioAfterRequest = 0;
+
+    console.log(this.coinsFromLocalStorage);
 
   }
 

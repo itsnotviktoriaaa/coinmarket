@@ -26,7 +26,7 @@
           <div class="detail-coin-info-text-number">{{coin?.maxSupply}} {{coin?.symbol}}</div>
         </div>
         <div class="detail-coin-info-button">
-          <button class="detail-button">Add To Portfolio</button>
+          <button class="detail-button" (click)="addToPortfolio()">Add To Portfolio</button>
         </div>
       </div>
       <div class="detail-coin-item detail-coin-chart">
@@ -47,4 +47,7 @@
       </div>
     </div>
   </div>
+
+  <modal-buy-coins [selectedCoinForBuy]="selectedCoinForBuy" [isOpenModal]="isOpenModal" (isCloseModal)="isCloseModal()"></modal-buy-coins>
+
 </div>

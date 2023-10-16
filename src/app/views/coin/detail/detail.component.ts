@@ -60,6 +60,10 @@ export class DetailComponent implements OnInit, AfterViewInit {
   button7d = false;
   button1m = false;
 
+
+  selectedCoinForBuy!: AllCoinsType;
+  isOpenModal: boolean = false;
+
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
 
@@ -238,6 +242,15 @@ export class DetailComponent implements OnInit, AfterViewInit {
     }
 
     this.getHistory(this.coin!.id, interval, difference);
+  }
+
+  addToPortfolio() {
+    this.selectedCoinForBuy = this.coin!;
+    this.isOpenModal = true;
+  }
+
+  isCloseModal(): void {
+    this.isOpenModal = false;
   }
 
 }

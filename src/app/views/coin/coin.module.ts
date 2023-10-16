@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CoinRoutingModule } from './coin-routing.module';
 import { DetailComponent } from './detail/detail.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/materia
   imports: [
     CommonModule,
     MatSnackBarModule,
+    SharedModule,
     CoinRoutingModule
   ],
   providers: [
